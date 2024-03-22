@@ -23,7 +23,7 @@ namespace Units
                 //ConsoleScreen.AddData("공격 명령 실행");
                 if (targets.Count == 0 || controlUnit.AttackUnit(targets.Peek().position, targets.Peek()) == false)//target에 대한 공격 시도. target이 null일 경우 자동으로 실패
                 {
-                    //target의 공격에 실패했을 경우, 자신의 공격 범위 안에 있는 적 중 가장 조직력이 낮은 적을 공격.
+                    //target의 공격에 실패했을 경우, 자신의 공격 범위 안에 있는 적 중 가장 많은 피해를 줄 수 있는 유닛을 공격
                     List<Unit> inRangeUnit = new List<Unit>();
                     Unit temp = null;
 
@@ -38,10 +38,19 @@ namespace Units
 
                     if(inRangeUnit.Count != 0)//공격 가능 대상이 존재할 경우
                     {
-                        float minOrg = 10000;//탐색한 최소 조직력
+                        float maxDmg = 0;//탐색한 최소 조직력
                         foreach (Unit unit in inRangeUnit)//선형 탐색
                         {
-                            if(unit.organization < minOrg)//탐색 대상이 검색한 대상의 조직력보다 낮은 조직력을 가지고 있을 경우
+                            float dmg = (controlUnit.softAttack * (1 - unit.hardness)) + (controlUnit.hardAttack * unit.hardness);//공격자의 대인/대물 공격력 비율과 타겟의 장갑 비율에 따른 기초 공격력 산출                accumulateDmg
+                            if (controlUnit.piercing < unit.armor)
+                            {
+                                dmg *= controlUnit.piercing / (unit.armor * 2);//타겟의 장갑 수치가 공격자의 관통을 넘길 경우, 피해량을 절반 이상 경감.
+                            }
+                            if(unit.organization - dmg < 0)
+                            {
+                                dmg += (unit.organization - dmg) * -2;
+                            }
+                            if (dmg > maxDmg)//탐색 대상이 검색한 대상의 조직력보다 낮은 조직력을 가지고 있을 경우
                             {
                                 temp = unit;//그 대상을 저장 (최소 조직력 초기값이 10000이라 반드시 1번은 들어가게 되어있음)
                             }
