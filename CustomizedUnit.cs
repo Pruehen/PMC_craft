@@ -138,7 +138,7 @@ namespace PMC_craft
                 int mifValue = 0;
                 int atlValue = 0;
                 int spaValue = 0;
-                int tnkValue = 0;
+                float tnkValue = 0;
 
                 for (int i = 0; i < slot.Length; i++)
                 {
