@@ -69,15 +69,15 @@ class Board
         {
             if (unit != null)
             {
-                unit.AiControl();                
+                unit.AiControl();
                 DrawUnit(unit);                
             }
         }
         foreach (Unit unit in unitPositionArray)
         {
-            if (unit != null)
+            if (unit != null && unit.isFriendly)
             {
-                unit.NextTurn();                                
+                unit.NextTurn();//아군 유닛 다음 턴으로                                
             }
         }
         foreach (Unit unit in unitPositionArray)

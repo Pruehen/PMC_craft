@@ -358,8 +358,12 @@ namespace Units
             if (unitAI == null)
                 return;
 
-            unitAI.Order(targetQueue);
-            EnemyVisualSet();
+            else
+            {
+                NextTurn();
+                unitAI.Order(targetQueue);
+                EnemyVisualSet();
+            }
         }
         public bool CanAction()
         {
