@@ -1,4 +1,5 @@
 ﻿using PMC_craft;
+using System.Numerics;
 using Units;
 
 class Board
@@ -187,19 +188,22 @@ class Board
         stateConsoleScreen.SetPositionUnitText(unitPositionArray[cursor.x, cursor.y]);
 
         Unit selectUnit = GetUnitData(select);
-        List<Position> rount = selectUnit.ReserveMoveSimulation(cursor);
-        DeleteCircle();
-        if (rount.Count > 0)
-        {            
-            for (int i = 0; i < rount.Count; i++)
+        if (selectUnit != null && selectUnit.state == Unit.OrderState.MOVE)
+        {
+            List<Position> rount = selectUnit.ReserveMoveSimulation(cursor);
+            DeleteCircle();
+            if (rount.Count > 0)
             {
-                if (i == rount.Count - 1)
+                for (int i = 0; i < rount.Count; i++)
                 {
-                    DrawCircle(rount[i], ConsoleColor.Yellow);
-                }
-                else
-                {
-                    DrawCircle(rount[i], ConsoleColor.Gray);
+                    if (i == rount.Count - 1)
+                    {
+                        DrawCircle(rount[i], ConsoleColor.Yellow);
+                    }
+                    else
+                    {
+                        DrawCircle(rount[i], ConsoleColor.Gray);
+                    }
                 }
             }
         }
@@ -384,6 +388,7 @@ class Board
             }
             orderPositionArray = null;
         }
+        DeleteCircle();
         circlePosStack.Clear();
     }
 

@@ -118,14 +118,14 @@ namespace PMC_craft
                     //player.board.UpdateUnitPosition();//아군 유닛이 이동했을 경우, 그 유닛을 갱신
                     //player.board.UpdateUnitPosition(player.board.GetCursor());//적군 유닛이 패주했을 경우, 그 유닛을 갱신
                     player.board.CursorMove(0, 0);
-                    player.stateScreen.SetSelectedUnit(null);
+                    player.stateScreen.SetSelectedUnit(null);                    
                     player.ChangeState(new BoardState());
                     break;
                 case ConsoleKey.Escape:
                     player.board.DeleteSelectPosition();
                     player.board.DeleteArea();
                     player.board.CursorMove(0, 0);
-                    player.stateScreen.SetSelectedUnit(null);
+                    player.stateScreen.SetSelectedUnit(null);                    
                     player.ChangeState(new BoardState());                    
                     break;
                 default:
@@ -149,7 +149,7 @@ namespace PMC_craft
                     break;
                 case ConsoleKey.Escape:                    
                     player.ChangeState(new BoardState());
-                    player.board.CursorMove_OrderMode(0, 0);
+                    player.board.CursorMove(0, 0);
                     break;
                 default:
                     break;

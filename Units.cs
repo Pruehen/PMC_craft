@@ -431,15 +431,22 @@ namespace Units
                 return null;
         }
 
+        public enum OrderState
+        {
+            MOVE, ATTACK
+        }
+        public OrderState state = OrderState.MOVE;//외부에서 참조하는 용도. 내부에서 사용하지 않음.
         public void SetOrder(string order)
         {
             if (order == "이동")
             {
                 OrderUnit = ReserveMove;
+                state = OrderState.MOVE;
             }
             else if (order == "공격")
             {
                 OrderUnit = AttackUnit;
+                state = OrderState.ATTACK;
             }
         }
         public void NextTurn()
