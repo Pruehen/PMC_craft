@@ -231,12 +231,12 @@
                  softAttack, hardAttack, hardness, armor, piercing)
         {
             canMoveArray = new Position[12];
-            canAttackArray = new Position[24];
+            canAttackArray = new Position[32];
         }
         public SelfPropelledArtillery(Unit data) : base(data)
         {
             canMoveArray = new Position[12];
-            canAttackArray = new Position[24];
+            canAttackArray = new Position[32];
             codeName = "SPA";
         }
 
