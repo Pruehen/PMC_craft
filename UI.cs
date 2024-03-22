@@ -282,8 +282,23 @@
                     UserData.SaveData();
                     Console.Clear();
                     uiController.GameEnd();
-                    break;
+                    break;                
                 default:
+                    if(keyInfo.KeyChar == '`')
+                    {
+                        Console.SetCursorPosition(10, 0);
+                        Console.Write("code :                                                ");
+                        Console.SetCursorPosition(17, 0);
+
+                        string input = Console.ReadLine();
+                        if(input == "show me the money")
+                        {
+                            UserData.UseCredit(-1000000);
+                            PrintCredit();
+                            Console.SetCursorPosition(10, 0);
+                            Console.Write("--코드 입력 완료--                                      ");
+                        }
+                    }
                     break;
             }
         }

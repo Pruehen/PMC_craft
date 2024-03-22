@@ -230,12 +230,12 @@
             float softAttack = 50, float hardAttack = 50, float hardness = 0, float armor = 0, float piercing = 30) : base(position, isFriendly, codeName, realName, hp, organization,
                  softAttack, hardAttack, hardness, armor, piercing)
         {
-            canMoveArray = new Position[12];
+            canMoveArray = new Position[8];
             canAttackArray = new Position[32];
         }
         public SelfPropelledArtillery(Unit data) : base(data)
         {
-            canMoveArray = new Position[12];
+            canMoveArray = new Position[8];
             canAttackArray = new Position[32];
             codeName = "SPA";
         }
@@ -251,11 +251,6 @@
             canMoveArray[5].SetPosition(position.x - 2, position.y);
             canMoveArray[6].SetPosition(position.x, position.y + 2);
             canMoveArray[7].SetPosition(position.x, position.y - 2);
-
-            canMoveArray[8].SetPosition(position.x + 3, position.y);
-            canMoveArray[9].SetPosition(position.x - 3, position.y);
-            canMoveArray[10].SetPosition(position.x, position.y + 3);
-            canMoveArray[11].SetPosition(position.x, position.y - 3);
         }
         public override void SetCanAttackArray()
         {
