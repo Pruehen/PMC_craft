@@ -590,7 +590,7 @@ namespace Units
             {
                 organization -= maxOrganization * 0.2f;
                 isCanMove = true;
-                ConsoleScreen.AddData($"유닛 이동 {Position.PrintPosition(position)} -> {Position.PrintPosition(newPosition)}", ConsoleColor.Yellow);
+                //ConsoleScreen.AddData($"유닛 이동 {Position.PrintPosition(position)} -> {Position.PrintPosition(newPosition)}", ConsoleColor.Yellow);
                 position = newPosition;
                 Board.UpdateUnit(this);                
 
