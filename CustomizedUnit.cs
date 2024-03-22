@@ -135,7 +135,7 @@ namespace PMC_craft
                 Equipment equipment;
                 float equipCount = 0;
 
-                int mifValue = 0;
+                float mifValue = 0;
                 int atlValue = 0;
                 int spaValue = 0;
                 float tnkValue = 0;
@@ -195,7 +195,7 @@ namespace PMC_craft
                     armor *= 1 / equipCount;
                     piercing *= 1 / equipCount;
 
-                    if (mifValue == equipCount && tnkValue >= mifValue / 2)
+                    if (mifValue == equipCount && tnkValue >= mifValue * 0.5f)
                         codeName = "TNK";
                     else if (spaValue == equipCount)
                         codeName = "SPA";
