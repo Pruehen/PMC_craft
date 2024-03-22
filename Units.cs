@@ -277,6 +277,7 @@ namespace Units
 
         static List<Unit> hostileUnitDatas = new List<Unit>();
         static List<Unit> friendlyUnitDatas = new List<Unit>();
+        static IEnumerator<Unit> fUnit_enumerator;
         static int friendlyUnitInitCount = 0;
         static int hostileUnitInitCount = 0;
         public static void UnitInit(List<Unit> friendlyUnits, List<Unit> hostileUnits)
@@ -294,6 +295,8 @@ namespace Units
                 hostileUnitDatas.Add(item);
             }
             hostileUnitInitCount = hostileUnitDatas.Count;
+
+            fUnit_enumerator = friendlyUnitDatas.GetEnumerator();
         }
         public static int HostileUnitActiveCount()
         {
@@ -330,6 +333,24 @@ namespace Units
         {
             return hostileUnitInitCount - hostileUnitDatas.Count;
         }
+        public static Unit? GetNextFriendlyUnit()
+        {
+            if (fUnit_enumerator == null || !fUnit_enumerator.MoveNext())
+            {
+                // enumerator가 null이거나 더 이상 요소가 없는 경우, 처음부터 다시 시작.
+                fUnit_enumerator = friendlyUnitDatas.GetEnumerator();
+                fUnit_enumerator.MoveNext();
+            }
+
+            while (fUnit_enumerator.Current.CanAction() == false)
+            {
+                if (!fUnit_enumerator.MoveNext())//모든 유닛이 행동불가일 경우 null 반환
+                    return null;
+            }
+
+            return fUnit_enumerator.Current;
+        }
+
 
         AI unitAI;
         public void AiControl()

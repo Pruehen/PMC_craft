@@ -33,6 +33,11 @@ namespace PMC_craft
                 case ConsoleKey.RightArrow:
                     player.board.CursorMove(1, 0);
                     break;
+                case ConsoleKey.Tab:
+                    Unit? unit = Unit.GetNextFriendlyUnit();
+                    Position deltaPos = (unit != null) ? unit.position - player.board.GetCursor() : Position.zero();
+                    player.board.CursorMove(deltaPos.x, deltaPos.y);
+                    break;
                 case ConsoleKey.Enter:
                     if (player.board.SetSelectPosition())
                     {

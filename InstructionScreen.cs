@@ -23,10 +23,12 @@
         Console.SetCursorPosition(76, 37);
         Console.Write("칸 이동   -> 방향키          ");
         Console.SetCursorPosition(76, 38);
-        Console.Write("칸 선택   -> Enter          ");
+        Console.Write("유닛 위치로-> Tab          ");
         Console.SetCursorPosition(76, 39);
-        Console.Write("턴 종료   -> SpaceBar       ");
+        Console.Write("칸 선택   -> Enter          ");
         Console.SetCursorPosition(76, 40);
+        Console.Write("턴 종료   -> SpaceBar       ");
+        Console.SetCursorPosition(76, 41);
         Console.Write("메인      -> ESC            ");
         Console.ResetColor();
     }
@@ -42,6 +44,8 @@
         Console.SetCursorPosition(76, 39);
         Console.Write("선택 취소 -> ESC            ");
         Console.SetCursorPosition(76, 40);
+        Console.Write("                           ");
+        Console.SetCursorPosition(76, 41);
         Console.Write("                           ");
 
         Console.ResetColor();
@@ -59,6 +63,8 @@
         Console.Write("선택 취소 -> ESC            ");
         Console.SetCursorPosition(76, 40);
         Console.Write("                            ");
+        Console.SetCursorPosition(76, 41);
+        Console.Write("                           ");
         Console.ResetColor();
     }
     public void SetInstructionScreen_Exit()
@@ -76,6 +82,8 @@
         Console.Write("예     -> Enter             ");
         Console.SetCursorPosition(76, 40);
         Console.Write("아니오 -> ESC               ");
+        Console.SetCursorPosition(76, 41);
+        Console.Write("                           ");
         Console.ResetColor();
     }
 }
