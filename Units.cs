@@ -516,11 +516,12 @@ namespace Units
             {
                 float minDistance = 10000;//유닛과의 거리가 최소가 되는 지점으로 이동할 것 (최대한 붙을 것)
                 Position movePos = Position.zero();
+                float currentDictance = (float)Position.DistanceDouble(this.position, targetPosition);
                 foreach (Position position in GetCanMoveArray())//유닛의 이동 가능 범위를 탐색
                 {
                     float distance = (float)Position.DistanceDouble(position, targetPosition);
-                    if (Board.GetUnitData(position) == null && distance < minDistance)
-                    //위치에 다른 유닛이 없을 경우 + 유닛과의 거리가 기존 탐색 위치보다 더 가까울 경우
+                    if (Board.GetUnitData(position) == null && distance < minDistance && distance < currentDictance)
+                    //위치에 다른 유닛이 없을 경우 + 유닛과의 거리가 기존 탐색 위치보다 더 가까울 경우 + 현재 위치하고 있는 곳보다 타겟과의 거리가 더 가까울 경우
                     {
                         minDistance = distance;
                         movePos = position;
@@ -549,11 +550,12 @@ namespace Units
             {
                 float minDistance = 10000;//유닛과의 거리가 최소가 되는 지점으로 이동할 것 (최대한 붙을 것)
                 Position movePos = Position.zero();
-                foreach (Position position in GetCanMoveArray())//유닛의 이동 가능 범위를 탐색
+                float currentDictance = (float)Position.DistanceDouble(this.position, targetPosition);
+                foreach (Position position in GetCanMoveArray())//유닛의 이동 가능 범위를 탐색. 이동 가능 범위의 칸 수만큼 탐색함.
                 {
                     float distance = (float)Position.DistanceDouble(position, targetPosition);
-                    if (Board.GetUnitData(position) == null && distance < minDistance)
-                    //위치에 다른 유닛이 없을 경우 + 유닛과의 거리가 기존 탐색 위치보다 더 가까울 경우
+                    if (Board.GetUnitData(position) == null && distance < minDistance && distance < currentDictance)
+                    //위치에 다른 유닛이 없을 경우 + 유닛과의 거리가 기존 탐색 위치보다 더 가까울 경우 + 현재 위치하고 있는 곳보다 타겟과의 거리가 더 가까울 경우
                     {
                         minDistance = distance;
                         movePos = position;
