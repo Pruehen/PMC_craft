@@ -38,7 +38,7 @@ namespace PMC_craft
             for (int i = 0; i < 30; i++)
             {
                 Console.SetCursorPosition(40, 6 + i);
-                Console.Write("                                                                                ");
+                Console.Write("                                                                                                              ");
             }
             Console.SetCursorPosition(40, 6);
             string[] lines = data.Split('\n');
@@ -91,7 +91,7 @@ namespace PMC_craft
                 case ConsoleKey.Enter:
                     break;
                 case ConsoleKey.Escape:
-                    DeleteData(40, 6, 120, 40);
+                    DeleteData(40, 6, 150, 40);
                     uiController.ChangeState(GetParent());
                     break;
                 default:
@@ -128,7 +128,7 @@ namespace PMC_craft
                 case ConsoleKey.Enter:
                     break;
                 case ConsoleKey.Escape:
-                    DeleteData(40, 6, 120, 40);
+                    DeleteData(40, 6, 150, 40);
                     uiController.ChangeState(GetParent());
                     break;
                 default:
@@ -170,7 +170,7 @@ namespace PMC_craft
                 case ConsoleKey.Enter:
                     break;
                 case ConsoleKey.Escape:
-                    DeleteData(40, 6, 120, 40);
+                    DeleteData(40, 6, 150, 40);
                     uiController.ChangeState(GetParent());
                     break;
                 default:
@@ -211,7 +211,7 @@ namespace PMC_craft
                 case ConsoleKey.Enter:
                     break;
                 case ConsoleKey.Escape:
-                    DeleteData(40, 6, 120, 40);
+                    DeleteData(40, 6, 150, 40);
                     uiController.ChangeState(GetParent());
                     break;
                 default:
