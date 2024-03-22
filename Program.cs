@@ -112,12 +112,11 @@ namespace PMC_craft
                     player.board.CursorMove_OrderMode(1, 0);
                     break;
                 case ConsoleKey.Enter:
+                    player.board.DeleteSelectPosition();
+                    player.board.DeleteArea();
                     player.stateScreen.OrderUnit(player.board.GetCursor(), player.board.GetUnitData());
                     //player.board.UpdateUnitPosition();//아군 유닛이 이동했을 경우, 그 유닛을 갱신
                     //player.board.UpdateUnitPosition(player.board.GetCursor());//적군 유닛이 패주했을 경우, 그 유닛을 갱신
-
-                    player.board.DeleteSelectPosition();
-                    player.board.DeleteArea();
                     player.board.CursorMove(0, 0);
                     player.stateScreen.SetSelectedUnit(null);
                     player.ChangeState(new BoardState());

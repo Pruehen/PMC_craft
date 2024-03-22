@@ -435,7 +435,7 @@ namespace Units
         {
             if (order == "이동")
             {
-                OrderUnit = MoveUnit;
+                OrderUnit = ReserveMove;
             }
             else if (order == "공격")
             {
@@ -503,6 +503,75 @@ namespace Units
         protected Position[] canAttackArray;//유닛의 공격 가능 범위
         //protected Position[] minVisualArray;//최소 시야 범위 - 렉이 너무 심해서 제거
         //protected Position[] maxVisualArray;//최대 시야 범위 - 렉이 너무 심해서 제거
+        public bool ReserveMove(Position targetPosition, Unit unit)//이동 예약 기능. 플레이어의 이동 처리에 사용
+        {
+            while (CanAction())
+            {
+                float minDistance = 10000;//유닛과의 거리가 최소가 되는 지점으로 이동할 것 (최대한 붙을 것)
+                Position movePos = Position.zero();
+                foreach (Position position in GetCanMoveArray())//유닛의 이동 가능 범위를 탐색
+                {
+                    float distance = (float)Position.DistanceDouble(position, targetPosition);
+                    if (Board.GetUnitData(position) == null && distance < minDistance)
+                    //위치에 다른 유닛이 없을 경우 + 유닛과의 거리가 기존 탐색 위치보다 더 가까울 경우
+                    {
+                        minDistance = distance;
+                        movePos = position;
+                    }
+                }
+                if (minDistance != 10000)//최소거리에 변화가 있을 경우 (이동 가능한 칸이 하나라도 있을 경우)
+                {
+                    MoveUnit(movePos, null);
+                    if (targetPosition == position)
+                        return true;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        public List<Position> ReserveMoveSimulation(Position targetPosition)//이동 예약 시뮬레이션 기능. 예상 이동 경로를 반환.
+        {
+            float virtualOrg = organization;
+            Position temp = position;//유닛의 원래 위치
+            List<Position> routePosition = new List<Position>();
+            while (virtualOrg >= maxOrganization * 0.2f)
+            {
+                float minDistance = 10000;//유닛과의 거리가 최소가 되는 지점으로 이동할 것 (최대한 붙을 것)
+                Position movePos = Position.zero();
+                foreach (Position position in GetCanMoveArray())//유닛의 이동 가능 범위를 탐색
+                {
+                    float distance = (float)Position.DistanceDouble(position, targetPosition);
+                    if (Board.GetUnitData(position) == null && distance < minDistance)
+                    //위치에 다른 유닛이 없을 경우 + 유닛과의 거리가 기존 탐색 위치보다 더 가까울 경우
+                    {
+                        minDistance = distance;
+                        movePos = position;
+                    }
+                }
+                if (minDistance != 10000)//최소거리에 변화가 있을 경우 (이동 가능한 칸이 하나라도 있을 경우)
+                {
+                    position = movePos;
+                    routePosition.Add(position);
+                    virtualOrg -= maxOrganization * 0.2f;
+                    if (targetPosition == position)
+                    {
+                        position = temp;
+                        return routePosition;
+                    }
+                }
+                else
+                {
+                    position = temp;
+                    return routePosition;
+                }
+            }
+            position = temp;
+            return routePosition;
+        }
         public bool MoveUnit(Position newPosition, Unit unit)//유닛 이동 명령. 이동 가능할 경우 이동하고 true, 이동 불가능할 경우 false 반환.
         {
             bool isCanMove = false;

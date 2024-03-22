@@ -44,10 +44,7 @@
         float x = end.x - start.x;
         float y = end.y - start.y;
 
-        if (x < 0) x *= -1;
-        if (y < 0) y *= -1;
-
-        return Math.Sqrt(x*x+y*y);
+        return Math.Sqrt(x * x + y * y);
     }
 
     // == 연산자 오버로딩

@@ -156,7 +156,7 @@ class Board
         stateConsoleScreen.SetPositionUnitText(unitPositionArray[cursor.x, cursor.y]);        
     }
     public void CursorMove_OrderMode(int moveX, int moveY)//명령 모드일 때, 흰색 커서 이동하는 기능. 영역을 표시하는 기능이 추가되어있음.
-    {
+    {        
         bool isInArea = false;
         if (orderPositionArray != null)
         {
@@ -185,6 +185,24 @@ class Board
 
         stateConsoleScreen.SetSelectedPosition(cursor);
         stateConsoleScreen.SetPositionUnitText(unitPositionArray[cursor.x, cursor.y]);
+
+        Unit selectUnit = GetUnitData(select);
+        List<Position> rount = selectUnit.ReserveMoveSimulation(cursor);
+        DeleteCircle();
+        if (rount.Count > 0)
+        {            
+            for (int i = 0; i < rount.Count; i++)
+            {
+                if (i == rount.Count - 1)
+                {
+                    DrawCircle(rount[i], ConsoleColor.Yellow);
+                }
+                else
+                {
+                    DrawCircle(rount[i], ConsoleColor.Gray);
+                }
+            }
+        }
     }
     public bool SetSelectPosition()//칸 선택하는 기능. 유닛이 있으면 그 유닛을 선택함.
     {
@@ -222,6 +240,24 @@ class Board
         Console.SetCursorPosition((position.x + 1) * 4 + 3, (position.y + 1) * 2);
         Console.Write('|');
         Console.ResetColor();
+    }
+    Stack<Position> circlePosStack = new Stack<Position>();
+    public void DrawCircle(Position position, ConsoleColor consoleColor)//원하는 위치에 원을 그리는 기능
+    {
+        Console.ForegroundColor = consoleColor;
+        Console.SetCursorPosition((position.x + 1) * 4, (position.y + 1) * 2);
+        Console.Write(" O");
+        circlePosStack.Push(position);
+        Console.ResetColor();
+    }
+    public void DeleteCircle()
+    {
+        while (circlePosStack.Count > 0)
+        {
+            Position position = circlePosStack.Pop();
+            Console.SetCursorPosition((position.x + 1) * 4 + 1, (position.y + 1) * 2);
+            Console.Write(" ");
+        }
     }
     public void DeletePoint(Position position)//위치한 네모 박스를 지우는 기능.
     {
@@ -312,12 +348,16 @@ class Board
         }
     }
 
-    Position[]? orderPositionArray;
+    Position[] orderPositionArray;
     public void SetOrderArea(Position[] positions)
     {
         if (positions != null)
         {
-            orderPositionArray = positions;
+            orderPositionArray = new Position[positions.Length];//값 복사해서 할당
+            for (int i = 0; i < positions.Length; i++)
+            {
+                orderPositionArray[i] = positions[i];
+            }
         }
     }
     public void DrawArea()//유닛의 이동 가능 범위, 사거리 등을 시각적으로 표시하기 위한 기능
@@ -344,6 +384,7 @@ class Board
             }
             orderPositionArray = null;
         }
+        circlePosStack.Clear();
     }
 
     public static void GameEnd(bool isWin)
